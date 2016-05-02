@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1462215193 source:c:\users\sascha\documents\informatik\programmieren\softwarelabor\c-strings\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+
