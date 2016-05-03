@@ -19,12 +19,10 @@ Z.B. aus der Zahl 0x4020 wird die Zahl 0x2040.
 */
 
 short int switchLowHighByte(short int i) {
-    // funktioniert nur mit positiven Zahlen, mehr war aber auch nicht gefordert?
-    unsigned short int highByte, lowByte, input;
-    input = i;
+    unsigned short int highByte, lowByte;
 
-    highByte = input & 0xFF00;
-    lowByte = input & 0x00FF;
+    highByte = i & 0xFF00;
+    lowByte = i & 0x00FF;
 
     highByte = highByte >> 8;
     lowByte = lowByte << 8;
@@ -82,11 +80,8 @@ verpackt wurden.
 */
 
 void deserialize(short int data, Status* s, Numbers* n) {
-    unsigned short int input;
-    input = data;
-
-    *s = input & 0x00FF;
-    *n = (input & 0xFF00) >> 8;
+    *s = data & 0x00FF;
+    *n = (data & 0xFF00) >> 8;
 }
 
 

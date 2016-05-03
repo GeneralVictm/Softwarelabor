@@ -1,5 +1,5 @@
 /**
- * @file   aufgabe2-pointer.c
+ * @file   main.c
  * @brief  Aufgabe2 - Pointermanipulationen
  */
 
@@ -84,7 +84,7 @@ void extract2(char* pattern, char* input, char** output) {
         if(strlen(input) < pat_length) {
             return;
         }
-        for(int j = 0; j < pat_length; j++) {
+        for(size_t j = 0; j < pat_length; j++) {
             current[j] = *(input+j);
         }
         if(strcmp(current, pattern) == 0) {
@@ -145,7 +145,8 @@ geliefert.
 
 int breakIntoWords(char* line, int maxwords, char* words[]) {
     char word[strlen(line)];
-    int count = 0, index = 0, length = 0;
+    int count = 0;
+    size_t index = 0, length = 0;
     bool wasWS = true;
 
     while(*line != '\0' && count < maxwords) {
@@ -201,7 +202,7 @@ typedef struct {
 
 void runTests(int no, TestCase test[]) {
   Test t;
-  int i;
+  size_t i;
 
   for(i=0; i < no; i++) {
     printf("Test %d: ", i);
@@ -234,7 +235,7 @@ typedef struct {
 
 void runTestsEx(int no, TestCaseEx test[]) {
   Test t;
-  int i;
+  size_t i;
 
   for(i=0; i < no; i++) {
     printf("Test %d: ", i);
@@ -289,14 +290,28 @@ int main() {
     char* words[10];
 
 	nwords = breakIntoWords(line, 10, words);
-	for(int i = 0; i < nwords; i++)
+	for(size_t i = 0; i < nwords; i++) {
 		printf("%s\n", words[i]);
+        free(words[i]);
+	}
 
+    printf("Zweiter split-Test:\n");
     char anotherLine[] = "this is another test";
     char* otherWords[10];
     nwords = breakIntoWords(anotherLine, 10, otherWords);
-	for(int i = 0; i < nwords; i++)
+	for(size_t i = 0; i < nwords; i++) {
 		printf("%s\n", otherWords[i]);
+		free(otherWords[i]);
+	}
+
+    printf("Dritter split-Test:\n");
+    char thirdLine[] = "";
+    char* thirdWords[10];
+    nwords = breakIntoWords(thirdLine, 10, thirdWords);
+	for(size_t i = 0; i < nwords; i++) {
+		printf("%s\n", thirdWords[i]);
+        free(thirdWords[i]);
+	}
 
     return EXIT_SUCCESS;
 }

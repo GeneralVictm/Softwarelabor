@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1462269514 source:c:\users\sasch\documents\github\softwarelabor\bitmanipulationen\main.c
+	<stdio.h>
+	<stdlib.h>
+
