@@ -143,7 +143,7 @@ geliefert.
 
 */
 
-int breakIntoWords(char *line, int maxwords, char *words[]) {
+int breakIntoWords(char* line, int maxwords, char* words[]) {
     char word[strlen(line)];
     int count = 0, index = 0, length = 0;
     bool wasWS = true;
@@ -151,7 +151,7 @@ int breakIntoWords(char *line, int maxwords, char *words[]) {
     while(*line != '\0' && count < maxwords) {
         if(*line == ' ') {
             if(!wasWS && *word != '\0') {
-                words[index] = malloc(length);
+                words[index] = malloc(strlen(word));
                 strcpy(words[index], word);
                 length = 0;
                 index++;
@@ -167,8 +167,8 @@ int breakIntoWords(char *line, int maxwords, char *words[]) {
         line++;
     }
 
-    if(length > 0) {
-        words[index] = malloc(length);
+    if(length > 0 && *word != '\0') {
+        words[index] = malloc(strlen(word));
         strcpy(words[index], word);
     }
 
@@ -292,11 +292,11 @@ int main() {
 	for(int i = 0; i < nwords; i++)
 		printf("%s\n", words[i]);
 
-    char line1[] = "Das ist ein weiterer Test.";
-    char* words1[8];
-    nwords = breakIntoWords(line1, 8, words1);
+    char anotherLine[] = "this is another test";
+    char* otherWords[10];
+    nwords = breakIntoWords(anotherLine, 10, otherWords);
 	for(int i = 0; i < nwords; i++)
-		printf("%s\n", words1[i]);
+		printf("%s\n", otherWords[i]);
 
     return EXIT_SUCCESS;
 }
