@@ -51,7 +51,7 @@ char* extract(char* pattern, char* input) {
         if(strlen(input) < pat_length) {
             return output;
         }
-        for(int j = 0; j < pat_length; j++) {
+        for(size_t j = 0; j < pat_length; j++) {
             current[j] = *(input+j);
         }
         if(strcmp(current, pattern) == 0) {
@@ -123,7 +123,7 @@ int count(char* input) {
         input++;
     }
 
-    return count; // Muss durch Ihre Loesung ersetzt werden
+    return count;
 }
 
 
@@ -144,7 +144,7 @@ geliefert.
 */
 
 int breakIntoWords(char* line, int maxwords, char* words[]) {
-    char word[strlen(line)];
+    char word[strlen(line)+1];
     int count = 0;
     size_t index = 0, length = 0;
     bool wasWS = true;
@@ -152,7 +152,7 @@ int breakIntoWords(char* line, int maxwords, char* words[]) {
     while(*line != '\0' && count < maxwords) {
         if(*line == ' ') {
             if(!wasWS && *word != '\0') {
-                words[index] = malloc(strlen(word));
+                words[index] = malloc(strlen(word)+1);
                 strcpy(words[index], word);
                 length = 0;
                 index++;

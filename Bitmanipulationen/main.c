@@ -19,10 +19,8 @@ Z.B. aus der Zahl 0x4020 wird die Zahl 0x2040.
 */
 
 short int switchLowHighByte(short int i) {
-    unsigned short int highByte, lowByte;
-
-    highByte = i & 0xFF00;
-    lowByte = i & 0x00FF;
+    unsigned short int highByte = i & 0xFF00,
+                        lowByte = i & 0x00FF;
 
     highByte = highByte >> 8;
     lowByte = lowByte << 8;
@@ -81,7 +79,7 @@ verpackt wurden.
 
 void deserialize(short int data, Status* s, Numbers* n) {
     *s = data & 0x00FF;
-    *n = (data & 0xFF00) >> 8;
+    *n = (unsigned short int)( data & 0xFF00) >> 8;
 }
 
 
@@ -126,6 +124,7 @@ int main() {
     printf("Eingabe: %x \n", zahl);
     zahl = switchLowHighByte(zahl);
     printf("Ausgabe der Switch-Funktion: %x \n", zahl);
+
     printf("Teste nun, ob die Zahl korrekt zum Ursprung gewandelt wird, wenn man die Funktion doppelt ausfuehrt.\n");
     Test t = testLowHigh(zahl);
     if (t == OK) {
