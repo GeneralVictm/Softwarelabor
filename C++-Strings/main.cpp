@@ -49,36 +49,35 @@ class String {
         String& operator=(const String& src) {
             if (this == &src)
                 return *this;
-            delete[] str;
-            size += src.getSize();
-            str = new char[size+1];
-            for(size_t i = 0; i < size; i++) {
-                str[i] = src[i];
+            char* help = new char[src.getSize()+1];
+            for(size_t i = 0; i < src.getSize(); i++) {
+                help[i] = src[i];
             }
-            str[size] = '\0';
+            help[src.getSize()] = '\0';
+            delete[] str;
+            str = help;
+            size = src.getSize();
             return *this;
         }
 
         String& operator+=(const String& src) {
             if (this == &src)
                 return *this;
-            String help(this->str);
-            delete[] str;
-            size = help.getSize() + src.getSize();
-            str = new char[size+1];
-            for(size_t i = 0; i < help.getSize(); i++) {
-                str[i] = help[i];
+            char* help = new char[size + src.getSize() + 1];
+            for(size_t i = 0; i < size; i++) {
+                help[i] = str[i];
             }
             for(size_t i = 0; i < src.getSize(); i++) {
-                str[i+help.getSize()] = src[i];
+                help[i+size] = src[i];
             }
-            str[size] = '\0';
+            help[size + src.getSize()] = '\0';
+            delete[] str;
+            str = help;
+            size += src.getSize();
             return *this;
         }
 
         char& operator[](size_t index) const {
-            if(index < 0 || index > size)
-                return str[size];
             return str[index];
         }
 
@@ -101,7 +100,10 @@ int main() {
     String s3(s2);
     s1 += s2; s2 = s3;
     cout << s1 << endl;
-    cout << s2 << endl;
+    cout << s2.getSize() << endl;
     cout << s3 << endl;
-    cout << s2[ 2 ] << endl;
-};
+    cout << s2[2] << endl;
+    String s4("Hallöchen");
+    s1 += s4;
+    cout << s1 << endl;
+}
