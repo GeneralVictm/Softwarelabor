@@ -97,7 +97,16 @@ bool FSA::isFinal() {
 }
 
 void FSA::closure() {
-
+    for(Transition t : ts) {
+        for(int i : current) {
+            if(t.isEpsilonTransition() && t.trigger(i)) {
+                int to = t.toState();
+                if(find(current.begin(), current.end(), to) == current.end()) {
+                    current.push_back(to);
+                }
+            }
+        }
+    }
 }
 
 void FSA::step(char c) {

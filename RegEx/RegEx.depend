@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1467087981 source:c:\users\sasch\documents\github\softwarelabor\regex\main.cpp
+	"Transform.h"
+	<iostream>
+
+1467088212 c:\users\sasch\documents\github\softwarelabor\regex\transform.h
+	<iostream>
+	"FSA.h"
+	"TestOrakel.h"
+
+1467086993 c:\users\sasch\documents\github\softwarelabor\regex\fsa.h
+	<vector>
+	<string>
+	<algorithm>
+
+1467036841 c:\users\sasch\documents\github\softwarelabor\regex\testorakel.h
+	"RE.h"
+
+1467072410 c:\users\sasch\documents\github\softwarelabor\regex\re.h
+	<string>
+	<sstream>
+
