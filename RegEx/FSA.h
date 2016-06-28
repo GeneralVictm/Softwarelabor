@@ -18,20 +18,20 @@ class FSA;
 
 class Transition {
  private:
-  int from; 
-  char c; 
+  int from;
+  char c;
   int to;
   bool epsilon;
  public:
 
   Transition(int _from, int _to) {
-    from = _from; to = _to; 
+    from = _from; to = _to;
     epsilon = true;
-  } 
+  }
   Transition(int _from, char _c, int _to) {
-    from = _from; c = _c; to = _to; 
+    from = _from; c = _c; to = _to;
     epsilon = false;
-  } 
+  }
   bool isEpsilonTransition() { return epsilon; }
   int toState() { return to; }
   bool trigger(int from, char c) {
@@ -92,12 +92,12 @@ bool FSA::isFinal() {
     for(int i=0; i < final.size(); i++) {
       if(find(current.begin(),current.end(),final[i]) != current.end())
 	return true;
-    }     
+    }
     return false;
 }
 
 void FSA::closure() {
-  // Ihre Aufgabe
+
 }
 
 void FSA::step(char c) {

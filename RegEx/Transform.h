@@ -43,14 +43,56 @@ NFA transformWorker(RE *r) {
 
   switch(r->ofType()) {
 
-  case EpsType: // TODO
-  case ChType: // TODO
-  case StarType: // TODO
-  case ConcType: // TODO
+  case EpsType:
+      start = fresh();
+      stop = fresh();
+      ts.push_back(Transition(start, stop));
+      return NFA(ts, start, stop);
+
+  case ChType:
+      Ch* r2 = (Ch*) r;
+      start = fresh();
+      stop = fresh();
+      ts.push_back(Transition(start, r2->getChar(), stop));
+      return NFA(ts, start, stop);
+
+  case StarType:
+      Star* r2 = (Star*) r;
+
+      NFA n = transformWorker(r2->getRE());
+
+      start = fresh();
+      stop = fresh();
+      int n_start = n.getInitial();
+      int n_stop = n.getFinals()[0];
+      vector<Transition> t = n.getTransitions();
+
+      ts.insert(ts.end(),t.begin(),t.end());
+      ts.push_back(Transition(start, n_start));
+      ts.push_back(Transition(n_stop, n_start));
+      ts.push_back(Transition(n_stop, stop));
+      ts.push_back(Transition(start, stop));
+
+      return NFA(ts, start, stop);
+
+  case ConcType:
+      Conc* r2 = (Conc*) r;
+
+      NFA n1 = transformWorker(r2->getLeft());
+      nameSupply--;
+      NFA n2 = transformWorker(r2->getRight());
+
+      vector<Transition> t1 = n1.getTransitions();
+      vector<Transition> t2 = n2.getTransitions();
+
+      ts.insert(ts.end(),t1.begin(),t1.end());
+      ts.insert(ts.end(),t2.begin(),t2.end());
+
+      return NFA(ts, n1.getInitial(), n2.getFinals()[0]);
 
   // Phi: Akzeptiert kein Wort
   // NFA besteht aus einem Start und Stopzustand und *keiner* Transition
-  case PhiType: 
+  case PhiType:
     start = fresh();
     stop = fresh();
     return NFA(ts, start, stop);
@@ -87,7 +129,7 @@ NFA transformWorker(RE *r) {
 
      return NFA(ts,start,stop);
   }
-      
+
 
 
   } // switch

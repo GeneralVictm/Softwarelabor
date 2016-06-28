@@ -1,7 +1,7 @@
 // Main fuer Teilaufgabe 1
 // Bitte weitere Testfaelle hinzufuegen.
 
-#include "RE.h"
+#include "Transform.h"
 #include <iostream>
 
 using namespace std;
